@@ -1,6 +1,7 @@
 from flask import Flask, request, session
 from extensions import db
 from csv_parser import ParseCSV
+from sign_up import SignUp
 
 app = Flask('__main__')
 app.secret_key = 'IsItSecret?IsItSafe?'
