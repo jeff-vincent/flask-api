@@ -4,9 +4,9 @@ from utils import ParseRequest
 
 class ParseCSV:
 
-    def parse(request):
+    def parse(request, session):
 
-        parsed_request = ParseRequest.parse(request)
+        parsed_request = ParseRequest.parse(request, session)
 
-        return parsed_request + ' + B'
+        return parsed_request + ' + C'
 

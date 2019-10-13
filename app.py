@@ -1,4 +1,4 @@
-from flask import Flask, request
+from flask import Flask, request, session
 import csv
 
 from csv_parser import ParseCSV
@@ -11,7 +11,7 @@ def index():
 
 @app.route('/parse-csv', methods=['GET','POST'])
 def parse_csv():
-    return ParseCSV.parse(request)
+    return ParseCSV.parse(request, session)
 
 
 

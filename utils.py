@@ -1,7 +1,7 @@
+from auth import APIAuth
+
 class ParseRequest:
 
-    def __init__(self):
-        pass
-
-    def parse(self):
-        return 'A'
+    def parse(request, session):
+        authorized_request = APIAuth.authorize(request, session)
+        return authorized_request + ' + B'
