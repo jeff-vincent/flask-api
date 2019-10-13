@@ -1,13 +1,15 @@
-from db import User
-from utils import ParseRequest
+from models import User
 
 class SignUp:
 
+
     def sign_up(request):
-        request_dict = ParseRequest.parse(request)
+        email = request.form['email']
+        password = request.form['password']
 
         try:
-            new_user = User(email=request_dict['email'], password=request_dict['password'])
+            new_user = User(email=email, password=password)
+            return 'Successfully created user {}'.format(new_user.email)
         
         except Exception as e:
             return str(e)
