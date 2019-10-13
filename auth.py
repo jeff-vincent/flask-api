@@ -1,5 +1,13 @@
-
 class APIAuth:
 
     def authorize(request, session):
-        return 'A'
+        
+        try:
+        
+            if session['logged_in']:
+
+                return 'A'
+
+        except:
+
+            return 'Not logged in'

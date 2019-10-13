@@ -1,12 +1,13 @@
 from flask import Flask, request, session
-import csv
 
 from csv_parser import ParseCSV
 
 app = Flask('__main__')
+app.secret_key = 'IsItSecret?IsItSafe?'
 
 @app.route('/')
 def index():
+    session['logged_in'] = True
     return 'index'
 
 @app.route('/parse-csv', methods=['GET','POST'])
