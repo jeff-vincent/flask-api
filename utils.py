@@ -3,9 +3,9 @@ from auth import APIAuth
 class ParseRequest:
 
     def parse(request, session):
-        request = APIAuth.authorize(request, session)
+        authorized_user = APIAuth.authorize(request, session)
 
-        if request == 'Not logged in':
+        if authorized_user == None:
             return 'Not logged in'
 
-        return request + ' + B'
+        return authorized_user + ' + B'
