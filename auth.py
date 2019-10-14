@@ -1,8 +1,20 @@
+from extensions import db
+from models import User
+
+
 class APIAuth:
 
     def authorize(request, session):
+        email = request.form['email']
+        password = request.form['password']
+
         try:
-            if session['logged_in']:
+            user = db.session.query(User).filter_by(email=email, password=password).first()
+        
+            if user:
+                session['logged_in'] = True
                 return 'A'
-        except:
-            return 'Not logged in'
+        
+        except Exception as e:
+            return str(e)
+            

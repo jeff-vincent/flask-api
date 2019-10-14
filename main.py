@@ -3,10 +3,21 @@ from extensions import db
 from csv_parser import ParseCSV
 from sign_up import SignUp
 
-app = Flask('__main__')
-app.secret_key = 'IsItSecret?IsItSafe?'
-app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://Jeff:password@localhost/flask-api-db'
-db.init_app(app)
+
+def create_app():
+    app = Flask(__name__)
+    app.secret_key = 'IsItSecret?IsItSafe?'
+    app.config['DEBUG'] = True
+    app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://root:password@localhost/flaskapidb'
+    db.init_app(app)    
+    return app 
+
+def setup_database(app):
+    with app.app_context():
+        db.create_all()
+
+app = create_app()
+setup_database(app)
 
 @app.route('/')
 def index():

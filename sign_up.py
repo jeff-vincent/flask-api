@@ -1,4 +1,5 @@
 from models import User
+from extensions import db
 
 class SignUp:
 
@@ -9,6 +10,8 @@ class SignUp:
 
         try:
             new_user = User(email=email, password=password)
+            db.session.add(new_user)
+            db.session.commit()
             return 'Successfully created user {}'.format(new_user.email)
         
         except Exception as e:
