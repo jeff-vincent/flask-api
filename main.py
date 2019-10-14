@@ -35,6 +35,9 @@ def index():
         <form action="/do-task" method="post">
             <p><input type=submit value=DoTask >
         </form>
+        <form action="/logout" method="get">
+            <p><input type=submit value=Logout >
+        </form>
         """
 
 @app.route('/sign-up', methods=['POST'])
@@ -44,6 +47,10 @@ def sign_up():
 @app.route('/login', methods=['POST'])
 def login():
     return Admin.login(request)
+
+@app.route('/logout', methods=['GET','POST'])
+def logout():
+    return Admin.logout(request)
 
 @app.route('/do-task', methods=['GET','POST'])
 def do_task():

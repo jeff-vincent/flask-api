@@ -1,3 +1,4 @@
+from flask import session
 from models import User
 from extensions import db
 from auth import APIAuth
@@ -17,7 +18,8 @@ class Admin:
             return 'Successfully created user {}'.format(new_user.email)
         
         except Exception as e:
-            return 'Sign-up failed; ' + str(e)
+            if "key 'email'" in str(e):
+                return 'An account with that email already exists.' 
 
 
     def login(request):
@@ -32,3 +34,7 @@ class Admin:
         
         except Exception as e:
             return 'Login failed: ' + str(e)
+
+    def logout(request):
+        session['logged_in'] = False
+        return 'Logout Successful'
