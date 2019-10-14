@@ -1,7 +1,7 @@
-from flask import Flask, request, session
+from flask import Flask, request
 from extensions import db
-from csv_parser import ParseCSV
-from sign_up import SignUp
+from do_task import DoTask
+from admin import Admin
 
 
 def create_app():
@@ -21,16 +21,33 @@ setup_database(app)
 
 @app.route('/')
 def index():
-    session['logged_in'] = True
-    return 'index'
+    return """
+        <form action="/sign-up" method="post">
+            <p><input type=text name=email placeholder=email>
+            <p><input type=password name=password placeholder=password>
+            <p><input type=submit value=SignUp >
+        </form>
+        <form action="/login" method="post">
+            <p><input type=text name=email>
+            <p><input type=password name=password>
+            <p><input type=submit value=Login >
+        </form>
+        <form action="/do-task" method="post">
+            <p><input type=submit value=DoTask >
+        </form>
+        """
 
 @app.route('/sign-up', methods=['POST'])
 def sign_up():
-    return SignUp.sign_up(request)
+    return Admin.sign_up(request)
 
-@app.route('/parse-csv', methods=['GET','POST'])
-def parse_csv():
-    return ParseCSV.parse(request, session)
+@app.route('/login', methods=['POST'])
+def login():
+    return Admin.login(request)
+
+@app.route('/do-task', methods=['GET','POST'])
+def do_task():
+    return DoTask.do_task(request)
 
 if __name__ == '__main__':
     app.run()

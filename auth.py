@@ -1,10 +1,11 @@
+from flask import session
 from extensions import db
 from models import User
 
 
 class APIAuth:
 
-    def authorize(request, session):
+    def authorize(request):
         email = request.form['email']
         password = request.form['password']
 
@@ -13,7 +14,9 @@ class APIAuth:
         
             if user:
                 session['logged_in'] = True
-                return 'A'
+                return True
+            else:
+                return False
         
         except Exception as e:
             return str(e)

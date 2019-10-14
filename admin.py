@@ -1,10 +1,12 @@
 from models import User
 from extensions import db
+from auth import APIAuth
 
-class SignUp:
+class Admin:
 
 
     def sign_up(request):
+        
         email = request.form['email']
         password = request.form['password']
 
@@ -15,4 +17,18 @@ class SignUp:
             return 'Successfully created user {}'.format(new_user.email)
         
         except Exception as e:
-            return str(e)
+            return 'Sign-up failed; ' + str(e)
+
+
+    def login(request):
+
+        try:
+            active_user = APIAuth.authorize(request)
+            if active_user:
+                return 'Login successful'
+
+            else:
+                return 'Please sign-up'
+        
+        except Exception as e:
+            return 'Login failed: ' + str(e)
