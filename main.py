@@ -1,6 +1,6 @@
 from flask import Flask, request
 from extensions import db
-from do_task import DoTask
+from create_post import CreatePost
 from admin import Admin
 
 
@@ -19,21 +19,23 @@ def setup_database(app):
 app = create_app()
 setup_database(app)
 
+
 @app.route('/')
 def index():
     return """
         <form action="/sign-up" method="post">
             <p><input type=text name=email placeholder=email>
             <p><input type=password name=password placeholder=password>
-            <p><input type=submit value=SignUp >
+            <p><input type=submit value="Sign Up" >
         </form>
         <form action="/login" method="post">
             <p><input type=text name=email>
             <p><input type=password name=password>
             <p><input type=submit value=Login >
         </form>
-        <form action="/do-task" method="post">
-            <p><input type=submit value=DoTask >
+        <form action="/create-post" method="post">
+            <p><input type=text name=content>
+            <p><input type=submit value="Create Post" >
         </form>
         <form action="/logout" method="get">
             <p><input type=submit value=Logout >
@@ -52,9 +54,9 @@ def login():
 def logout():
     return Admin.logout(request)
 
-@app.route('/do-task', methods=['GET','POST'])
+@app.route('/create-post', methods=['GET','POST'])
 def do_task():
-    return DoTask.do_task(request)
+    return CreatePost.create_post(request)
 
 if __name__ == '__main__':
     app.run()

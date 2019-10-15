@@ -5,6 +5,7 @@ from auth import APIAuth
 
 class Admin:
 
+    USER_ID = ''
 
     def sign_up(request):
         
@@ -27,6 +28,9 @@ class Admin:
         try:
             active_user = APIAuth.authorize(request)
             if active_user:
+                
+                Admin.USER_ID = active_user.id
+                print(Admin.USER_ID)
                 return 'Login successful'
 
             else:
@@ -37,4 +41,5 @@ class Admin:
 
     def logout(request):
         session['logged_in'] = False
+        Admin.USER_ID = ''
         return 'Logout Successful'
