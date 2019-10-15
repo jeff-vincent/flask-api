@@ -33,4 +33,4 @@ class GetPost:
                 return 'Please log in'
 
         except Exception as e:
-            return 'Get posts failed: ' + str(e)
+            return 'Get current users posts failed: ' +str(e)
