@@ -2,6 +2,7 @@ from flask import Flask, request
 from extensions import db
 from create_post import CreatePost
 from admin import Admin
+from get_post import GetPost
 
 
 def create_app():
@@ -26,19 +27,25 @@ def index():
         <form action="/sign-up" method="post">
             <p><input type=text name=email placeholder=email>
             <p><input type=password name=password placeholder=password>
-            <p><input type=submit value="Sign Up" >
+            <p><input type=submit value="Sign Up">
         </form>
         <form action="/login" method="post">
             <p><input type=text name=email>
             <p><input type=password name=password>
-            <p><input type=submit value=Login >
+            <p><input type=submit value=Login>
         </form>
         <form action="/create-post" method="post">
             <p><input type=text name=content>
-            <p><input type=submit value="Create Post" >
+            <p><input type=submit value="Create Post">
         </form>
         <form action="/logout" method="get">
-            <p><input type=submit value=Logout >
+            <p><input type=submit value=Logout>
+        </form>
+        <form action="/get-posts" method="get">
+            <p><input type=submit value="Get Posts">
+        </form>
+        <form action="/get-current-users-posts" method="get">
+            <p><input type=submit value="Get Your Posts">
         </form>
         """
 
@@ -55,8 +62,18 @@ def logout():
     return Admin.logout(request)
 
 @app.route('/create-post', methods=['GET','POST'])
-def do_task():
+def create_post():
     return CreatePost.create_post(request)
+
+@app.route('/get-posts', methods=['GET'])
+def get_posts():
+    return GetPost.get_posts(request)
+
+@app.route('/get-current-users-posts', methods=['GET'])
+def get_current_users_posts():
+    return GetPost.get_current_users_posts(request)
+
+
 
 if __name__ == '__main__':
     app.run()
