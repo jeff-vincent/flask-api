@@ -15,11 +15,12 @@ class CreatePost:
                 new_post = Post(content=content, user_id=Admin.USER_ID)
                 db.session.add(new_post)
                 db.session.commit()
-                return 'New post content: {}'.format(new_post.content)
+                return 'New post content: ' + new_post.content
             else: 
                 return 'Please log in'
                 
         except Exception as e:
             if 'Incorrect integer value:' in str(e):
                 return 'Please log in'
-            return 'Task failed. Error Code: {}'.format(str(e))
+            return 'Create post failed. Error Code: ' + str(e)
+

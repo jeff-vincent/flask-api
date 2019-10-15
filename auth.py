@@ -22,5 +22,5 @@ class APIAuth:
                 return False
         
         except Exception as e:
-            return str(e)
+            return 'Auth failed: ' + str(e)
             

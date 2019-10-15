@@ -3,6 +3,7 @@ from extensions import db
 from create_post import CreatePost
 from admin import Admin
 from get_post import GetPost
+from get_user import GetUser
 
 
 def create_app():
@@ -47,6 +48,9 @@ def index():
         <form action="/get-current-users-posts" method="get">
             <p><input type=submit value="Get Your Posts">
         </form>
+        <form action="/get-current-user" method="get">
+            <p><input type=submit value="Get Yourself">
+        </form>
         """
 
 @app.route('/sign-up', methods=['POST'])
@@ -72,6 +76,10 @@ def get_posts():
 @app.route('/get-current-users-posts', methods=['GET'])
 def get_current_users_posts():
     return GetPost.get_current_users_posts(request)
+
+@app.route('/get-current-user', methods=['GET'])
+def get_current_user():
+    return GetUser.get_current_user(request)
 
 
 

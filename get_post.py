@@ -18,7 +18,7 @@ class GetPost:
                 return 'Please log in'
 
         except Exception as e:
-            return 'Get posts failed: ' +str(e)
+            return 'Get posts failed: ' + str(e)
 
     def get_current_users_posts(request):
 
@@ -33,4 +33,4 @@ class GetPost:
                 return 'Please log in'
 
         except Exception as e:
-            return 'Get posts failed: ' +str(e)
+            return 'Get posts failed: ' + str(e)
