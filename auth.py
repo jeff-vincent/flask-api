@@ -3,7 +3,6 @@ from extensions import db
 from models import User
 
 
-USER_ID = ''
 
 class APIAuth:
 
@@ -15,7 +14,6 @@ class APIAuth:
             user = db.session.query(User).filter_by(email=email, password=password).first()
         
             if user:
-                USER_ID = user.id
                 session['logged_in'] = True
                 return user
             else:

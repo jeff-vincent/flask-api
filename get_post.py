@@ -1,6 +1,6 @@
-from flask import session
+from flask import session, jsonify
 from extensions import db
-from models import Post
+from models import Post, post_schema
 from admin import Admin
 
 class GetPost:
@@ -9,11 +9,12 @@ class GetPost:
 
         try:
             if session['logged_in']:
-                # TODO: use Marshmallow to serialize response. 
-                # Currently returning single post, because
-                # otherwise it returns list of, well, nothingness...
-                posts = db.session.query(Post).first()
-                return str(posts.content)
+
+                data = db.session.query(Post).all()
+
+                data = post_schema.dump(data)
+
+                return jsonify(data)
             else:
                 return 'Please log in'
 
@@ -24,11 +25,12 @@ class GetPost:
 
         try:
             if session['logged_in']:
-                # TODO: use Marshmallow to serialize response. 
-                # Currently returning single post, because
-                # otherwise it returns list of, well, nothingness...
-                posts = db.session.query(Post).filter_by(user_id=Admin.USER_ID).first()
-                return str(posts.content)
+
+                data = db.session.query(Post).filter_by(user_id=Admin.USER_ID).all()
+                
+                data = post_schema.dump(data)
+
+                return jsonify(data)
             else:
                 return 'Please log in'
 

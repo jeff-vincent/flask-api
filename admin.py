@@ -30,7 +30,6 @@ class Admin:
             if active_user:
                 
                 Admin.USER_ID = active_user.id
-                print(Admin.USER_ID)
                 return 'Login successful'
 
             else:
@@ -40,6 +39,8 @@ class Admin:
             return 'Login failed: ' + str(e)
 
     def logout(request):
+
         session['logged_in'] = False
         Admin.USER_ID = ''
         return 'Logout Successful'
+

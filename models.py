@@ -1,4 +1,5 @@
 from extensions import db
+from marshmallow import Schema, fields
 
 class User(db.Model):
     id = db.Column(db.Integer, primary_key=True)
@@ -9,6 +10,13 @@ class User(db.Model):
     def __repr__(self):
         return '<User %r>' % self.email
 
+class UserSchema(Schema):
+    class Meta:
+        fields = ('id', 'email', 'password')
+
+user_schema = UserSchema(many=True)
+
+
 
 class Post(db.Model):
     id = db.Column(db.Integer, primary_key=True)
@@ -17,3 +25,9 @@ class Post(db.Model):
 
     def __repr__(self):
         return '<Post %r>' % self.id
+
+class PostSchema(Schema):
+    class Meta:
+        fields = ('id', 'content', 'user_id')
+
+post_schema = PostSchema(many=True)
