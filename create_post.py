@@ -11,7 +11,6 @@ class CreatePost:
         try:
             if session['logged_in']:
                 content = request.form['content']
-                print(content)
                 new_post = Post(content=content, user_id=Admin.USER_ID)
                 db.session.add(new_post)
                 db.session.commit()

@@ -9,11 +9,8 @@ class GetPost:
 
         try:
             if session['logged_in']:
-
                 data = db.session.query(Post).all()
-
                 data = post_schema.dump(data)
-
                 return jsonify(data)
             else:
                 return 'Please log in'
@@ -25,11 +22,8 @@ class GetPost:
 
         try:
             if session['logged_in']:
-
                 data = db.session.query(Post).filter_by(user_id=Admin.USER_ID).all()
-                
                 data = post_schema.dump(data)
-
                 return jsonify(data)
             else:
                 return 'Please log in'

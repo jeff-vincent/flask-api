@@ -51,6 +51,9 @@ def index():
         <form action="/get-current-user" method="get">
             <p><input type=submit value="Get Yourself">
         </form>
+        <form action="/get-all-users" method="get">
+            <p><input type=submit value="Get All Users (Admin action)">
+        </form>
         """
 
 @app.route('/sign-up', methods=['POST'])
@@ -80,6 +83,10 @@ def get_current_users_posts():
 @app.route('/get-current-user', methods=['GET'])
 def get_current_user():
     return GetUser.get_current_user(request)
+
+@app.route('/get-all-users', methods=['GET'])
+def get_all_users():
+    return GetUser.get_all_users(request)
 
 
 

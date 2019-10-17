@@ -5,6 +5,9 @@ from auth import APIAuth
 
 class Admin:
 
+    # TODO: move this to the db. 
+    ADMIN_USER_LIST = ['jeff.d.vincent@gmail.com']
+
     USER_ID = ''
 
     def sign_up(request):
@@ -16,7 +19,7 @@ class Admin:
             new_user = User(email=email, password=password)
             db.session.add(new_user)
             db.session.commit()
-            return 'Successfully created user {}'.format(new_user.email)
+            return 'Successfully created user: ' + new_user.email
         
         except Exception as e:
             if "key 'email'" in str(e):
@@ -27,7 +30,10 @@ class Admin:
 
         try:
             active_user = APIAuth.authorize(request)
+
             if active_user:
+                if active_user.email in Admin.ADMIN_USER_LIST:
+                    session['admin_user'] = True
                 
                 Admin.USER_ID = active_user.id
                 return 'Login successful'
@@ -41,6 +47,7 @@ class Admin:
     def logout(request):
 
         session['logged_in'] = False
+        session['admin_user'] = False
         Admin.USER_ID = ''
         return 'Logout Successful'
 
