@@ -4,6 +4,7 @@ from create_post import CreatePost
 from admin import Admin
 from get_post import GetPost
 from get_user import GetUser
+from file_store import FileStore
 
 
 def create_app():
@@ -54,6 +55,11 @@ def index():
         <form action="/get-all-users" method="get">
             <p><input type=submit value="Get All Users (Admin action)">
         </form>
+        <form action="/upload" method="post" enctype="multipart/form-data">
+            <p><input type=text name=filename>
+            <p><input type=file name=file>
+            <p><input type=submit value="upload file">
+        </form>
         """
 
 @app.route('/sign-up', methods=['POST'])
@@ -87,6 +93,10 @@ def get_current_user():
 @app.route('/get-all-users', methods=['GET'])
 def get_all_users():
     return GetUser.get_all_users(request)
+
+@app.route('/upload', methods=['POST'])
+def upload():
+    return FileStore.upload(request)
 
 
 
