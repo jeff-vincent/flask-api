@@ -60,6 +60,13 @@ def index():
             <p><input type=file name=file>
             <p><input type=submit value="upload file">
         </form>
+        <form action="/download" method="post">
+            <p><input type=text name=filename>
+            <p><input type=submit value="download file">
+        </form>
+        <form action="/get-current-users-files" method="get">
+            <p><input type=submit value="Get Your Files">
+        </form>
         """
 
 @app.route('/sign-up', methods=['POST'])
@@ -97,6 +104,14 @@ def get_all_users():
 @app.route('/upload', methods=['POST'])
 def upload():
     return FileStore.upload(request)
+
+@app.route('/download', methods=['POST'])
+def download():
+    return FileStore.download(request)
+
+@app.route('/get-current-users-files', methods=['GET'])
+def get_current_users_files():
+    return FileStore.get_current_users_files(request)
 
 
 
