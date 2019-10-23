@@ -1,7 +1,7 @@
 from flask import session, jsonify
-from extensions import db
+from utils.extensions import db
 from models import Post, post_schema
-from admin import Admin
+from utils.admin import Admin
 
 class GetPost:
 

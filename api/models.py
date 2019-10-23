@@ -1,4 +1,4 @@
-from extensions import db
+from utils.extensions import db
 from marshmallow import Schema, fields
 
 class User(db.Model):

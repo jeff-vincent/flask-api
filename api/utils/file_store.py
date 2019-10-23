@@ -5,23 +5,23 @@ import requests
 import os
 
 # Local modules
-from extensions import db
+from utils.extensions import db
 from models import File, file_schema
-from config import Config
-from admin import Admin
+from config import FILE_STORE_URI
+from utils.admin import Admin
 
 
 class FileStore:
 
     def upload(request):
         file = request.files['file']
-        filename = request.form['filename']
+        filename = file.filename
         files = {'file': file}
         if session['logged_in']:
             data = {
                 'filename': filename,
             }
-            r = requests.post(Config.FILE_STORE_URI + 'upload', data=data, files=files)
+            r = requests.post(FILE_STORE_URI + 'upload', data=data, files=files)
 
             if r.status_code == 200:
                 file = File(filename=filename, user_id=Admin.USER_ID)

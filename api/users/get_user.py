@@ -1,6 +1,6 @@
 from models import User, user_schema
-from extensions import db
-from admin import Admin
+from utils.extensions import db
+from utils.admin import Admin
 from flask import session, jsonify
 
 class GetUser:

@@ -1,7 +1,7 @@
 from flask import session
 from models import User
-from extensions import db
-from auth import APIAuth
+from utils.extensions import db
+from utils.auth import APIAuth
 
 class Admin:
 

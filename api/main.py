@@ -1,10 +1,10 @@
 from flask import Flask, request
-from extensions import db
-from create_post import CreatePost
-from admin import Admin
-from get_post import GetPost
-from get_user import GetUser
-from file_store import FileStore
+from utils.extensions import db
+from posts.create_post import CreatePost
+from utils.admin import Admin
+from posts.get_post import GetPost
+from users.get_user import GetUser
+from utils.file_store import FileStore
 
 
 def create_app():
@@ -56,7 +56,6 @@ def index():
             <p><input type=submit value="Get All Users (Admin action)">
         </form>
         <form action="/upload" method="post" enctype="multipart/form-data">
-            <p><input type=text name=filename>
             <p><input type=file name=file>
             <p><input type=submit value="upload file">
         </form>

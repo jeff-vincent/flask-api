@@ -1,5 +1,5 @@
 from flask import session
-from extensions import db
+from utils.extensions import db
 from models import User
 
 

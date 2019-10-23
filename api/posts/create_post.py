@@ -1,7 +1,7 @@
 from flask import session
 from models import Post
-from admin import Admin
-from extensions import db
+from utils.admin import Admin
+from utils.extensions import db
 
 
 class CreatePost:
