@@ -8,12 +8,12 @@ import os
 from utils.extensions import db
 from models import File, file_schema
 from config import FILE_STORE_URI
-from utils.admin import Admin
+from users.user import Admin
 
 
 class FileStore:
 
-    def upload(request):
+    def upload(self, request):
         file = request.files['file']
         filename = file.filename
         files = {'file': file}
@@ -32,13 +32,13 @@ class FileStore:
             else:
                 return 'Connection to Mongo failed.'
 
-    def download(request):
+    def download(self, request):
         filename = request.form['filename']
         if session['logged_in']:
             data = {
                 'filename': filename,
             }
-            r = requests.post(Config.FILE_STORE_URI + 'download', data=data)
+            r = requests.post(FILE_STORE_URI + 'download', data=data)
 
             if r.status_code == 200:
                 file_type = FileStore._get_file_type(filename)
@@ -72,7 +72,7 @@ class FileStore:
         response.headers['Content-Disposition'] = 'inline; filename=' + filename
         return response
 
-    def get_current_users_files(request):
+    def get_current_users_files(self, request):
         if session['logged_in']:
             files = db.session.query(File).filter_by(user_id=Admin.USER_ID).all()
             files = file_schema.dump(files)

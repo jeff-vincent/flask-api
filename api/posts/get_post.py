@@ -1,11 +1,11 @@
 from flask import session, jsonify
 from utils.extensions import db
 from models import Post, post_schema
-from utils.admin import Admin
+from users.user import Admin
 
 class GetPost:
 
-    def get_posts(request):
+    def get_posts(self, request):
 
         try:
             if session['logged_in']:
@@ -18,7 +18,7 @@ class GetPost:
         except Exception as e:
             return 'Get posts failed: ' + str(e)
 
-    def get_current_users_posts(request):
+    def get_current_users_posts(self, request):
 
         try:
             if session['logged_in']:

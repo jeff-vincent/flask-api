@@ -1,7 +1,7 @@
 from flask import Flask, request
 from utils.extensions import db
 from posts.create_post import CreatePost
-from utils.admin import Admin
+from users.user import Admin
 from posts.get_post import GetPost
 from users.get_user import GetUser
 from utils.file_store import FileStore
@@ -70,49 +70,58 @@ def index():
 
 @app.route('/sign-up', methods=['POST'])
 def sign_up():
-    return Admin.sign_up(request)
+    admin = Admin()
+    return admin.sign_up(request)
 
 @app.route('/login', methods=['POST'])
 def login():
-    return Admin.login(request)
+    admin = Admin()
+    return admin.login(request)
 
 @app.route('/logout', methods=['GET','POST'])
 def logout():
-    return Admin.logout(request)
+    admin = Admin()
+    return admin.logout(request)
 
 @app.route('/create-post', methods=['GET','POST'])
 def create_post():
-    return CreatePost.create_post(request)
+    cp = CreatePost()
+    return cp.create_post(request)
 
 @app.route('/get-posts', methods=['GET'])
 def get_posts():
-    return GetPost.get_posts(request)
+    gp = GetPost()
+    return gp.get_posts(request)
 
 @app.route('/get-current-users-posts', methods=['GET'])
 def get_current_users_posts():
-    return GetPost.get_current_users_posts(request)
+    gp = GetPost()
+    return gp.get_current_users_posts(request)
 
 @app.route('/get-current-user', methods=['GET'])
 def get_current_user():
-    return GetUser.get_current_user(request)
+    gu = GetUser()
+    return gu.get_current_user(request)
 
 @app.route('/get-all-users', methods=['GET'])
 def get_all_users():
-    return GetUser.get_all_users(request)
+    gu = GetUser()
+    return gu.get_all_users(request)
 
 @app.route('/upload', methods=['POST'])
 def upload():
-    return FileStore.upload(request)
+    fs = FileStore()
+    return fs.upload(request)
 
 @app.route('/download', methods=['POST'])
 def download():
-    return FileStore.download(request)
+    fs = FileStore()
+    return fs.download(request)
 
 @app.route('/get-current-users-files', methods=['GET'])
 def get_current_users_files():
-    return FileStore.get_current_users_files(request)
-
-
+    fs = FileStore()
+    return fs.get_current_users_files(request)
 
 if __name__ == '__main__':
     app.run()

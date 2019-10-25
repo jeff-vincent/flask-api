@@ -1,12 +1,12 @@
 from flask import session
 from models import Post
-from utils.admin import Admin
+from users.user import Admin
 from utils.extensions import db
 
 
 class CreatePost:
 
-    def create_post(request):
+    def create_post(self, request):
 
         try:
             if session['logged_in']:

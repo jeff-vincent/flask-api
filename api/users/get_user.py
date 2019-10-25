@@ -1,11 +1,11 @@
 from models import User, user_schema
 from utils.extensions import db
-from utils.admin import Admin
+from users.user import Admin
 from flask import session, jsonify
 
 class GetUser:
 
-    def get_current_user(request):
+    def get_current_user(self, request):
         try:
             if session['logged_in']:
                 current_user = db.session.query(User).filter_by(id=Admin.USER_ID).first()
@@ -20,7 +20,7 @@ class GetUser:
             return 'Get user failed: ' + str(e)
 
 
-    def get_all_users(request):
+    def get_all_users(self, request):
         try:
             if session['logged_in']:
                 if session['admin_user']:

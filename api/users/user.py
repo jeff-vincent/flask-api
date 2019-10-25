@@ -10,7 +10,7 @@ class Admin:
 
     USER_ID = ''
 
-    def sign_up(request):
+    def sign_up(self, request):
         
         email = request.form['email']
         password = request.form['password']
@@ -26,7 +26,7 @@ class Admin:
                 return 'An account with that email already exists.' 
 
 
-    def login(request):
+    def login(self, request):
 
         try:
             active_user = APIAuth.authorize(request)
@@ -44,7 +44,7 @@ class Admin:
         except Exception as e:
             return 'Login failed: ' + str(e)
 
-    def logout(request):
+    def logout(self, request):
 
         session['logged_in'] = False
         session['admin_user'] = False

@@ -5,7 +5,8 @@ from models import User
 
 
 class APIAuth:
-
+    
+    @staticmethod
     def authorize(request):
         email = request.form['email']
         password = request.form['password']
