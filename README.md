@@ -6,7 +6,7 @@ To use:
 
 #### 1. Clone the repo
 
-#### 2. Create a virtual env in the root directory that runs Python3.6. 
+#### 2. Create a virtual env in the root directory that runs Python3.5. 
 
 #### 3. Install dependencies. From within the env, run:
 
