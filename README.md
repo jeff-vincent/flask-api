@@ -12,16 +12,12 @@ To use:
 
 ```pip install -r requirements.txt```
 
-#### 4. Setup MySQL. The current connection string assumes the following:
-###### a. You have a db in MySQL called `flaskapidb`
-###### b. You have a db admin user called `root` with a password of `password`
+> **NOTE:** The FileStore feature requires a running instance of [file-store](https://github.com/jeff-vincent/file-store).
 
-Adjust accordingly. 
-
-#### 5. Run the app. From within the root directory, run:
+#### 4. Run the app. From within the root directory, run:
 
 ```python main.py```
 
-#### 6. The app should be up at: 
+The app should be up at: 
 
 ```http://0.0.0.0:5000```
