@@ -44,7 +44,7 @@ class FileStore:
                 file_type = FileStore._get_file_type(filename)
                 if file_type in ['.jpg', '.png']:
                     return FileStore._handle_image(r, filename)
-                if file_type =='.pdf':
+                if file_type == '.pdf':
                     return FileStore._handle_pdf(r, filename)
                 else:
                     return 'Unrecognized file type. Returning data as stored: ' + str(r.content)
@@ -52,16 +52,24 @@ class FileStore:
             else:
                 return 'Connection to Mongo failed.'
 
+    def get_current_users_files(self, request):
+        if session['logged_in']:
+            files = db.session.query(File).filter_by(user_id=Admin.USER_ID).all()
+            files = file_schema.dump(files)
+            return jsonify(files)
+
+    @staticmethod
     def _get_file_type(filename):
         base_name, extension = os.path.splitext(filename)
         return extension
 
+    @staticmethod
     def _handle_image(r, filename):
         img = b64encode(r.content)
         img = img.decode('utf-8')
-        return '<img id="'+ filename +'" src="data:image/jpg;base64,'+ img +'">'
+        return '<img id="' + filename +'" src="data:image/jpg;base64,'+ img +'">'
 
-    
+    @staticmethod
     def _handle_pdf(r, filename):
         buffer = io.BytesIO()
         pdf = b64encode(r.content)
@@ -71,10 +79,3 @@ class FileStore:
         response.headers['Content-Type'] = 'application/pdf'
         response.headers['Content-Disposition'] = 'inline; filename=' + filename
         return response
-
-    def get_current_users_files(self, request):
-        if session['logged_in']:
-            files = db.session.query(File).filter_by(user_id=Admin.USER_ID).all()
-            files = file_schema.dump(files)
-            return jsonify(files)
-

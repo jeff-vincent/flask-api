@@ -3,7 +3,6 @@ from utils.extensions import db
 from models import User
 
 
-
 class APIAuth:
     
     @staticmethod
@@ -22,4 +21,3 @@ class APIAuth:
         
         except Exception as e:
             return 'Auth failed: ' + str(e)
-            

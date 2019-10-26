@@ -11,13 +11,15 @@ def create_app():
     app = Flask(__name__)
     app.secret_key = 'IsItSecret?IsItSafe?'
     app.config['DEBUG'] = True
-    app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://root:password@localhost/flaskapidb'
+    app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///accounts.db'
     db.init_app(app)    
     return app 
+
 
 def setup_database(app):
     with app.app_context():
         db.create_all()
+
 
 app = create_app()
 setup_database(app)
@@ -68,60 +70,74 @@ def index():
         </form>
         """
 
+
 @app.route('/sign-up', methods=['POST'])
 def sign_up():
     admin = Admin()
     return admin.sign_up(request)
+
 
 @app.route('/login', methods=['POST'])
 def login():
     admin = Admin()
     return admin.login(request)
 
-@app.route('/logout', methods=['GET','POST'])
+
+@app.route('/logout', methods=['GET', 'POST'])
 def logout():
     admin = Admin()
     return admin.logout(request)
 
-@app.route('/create-post', methods=['GET','POST'])
+
+@app.route('/create-post', methods=['GET', 'POST'])
 def create_post():
     cp = CreatePost()
     return cp.create_post(request)
+
 
 @app.route('/get-posts', methods=['GET'])
 def get_posts():
     gp = GetPost()
     return gp.get_posts(request)
 
+
 @app.route('/get-current-users-posts', methods=['GET'])
 def get_current_users_posts():
     gp = GetPost()
     return gp.get_current_users_posts(request)
+
 
 @app.route('/get-current-user', methods=['GET'])
 def get_current_user():
     gu = GetUser()
     return gu.get_current_user(request)
 
+
+# Requires Admin
 @app.route('/get-all-users', methods=['GET'])
 def get_all_users():
     gu = GetUser()
     return gu.get_all_users(request)
 
+
+# NOTE: The following endpoints require the FileStore service locally. 
 @app.route('/upload', methods=['POST'])
 def upload():
     fs = FileStore()
     return fs.upload(request)
+
 
 @app.route('/download', methods=['POST'])
 def download():
     fs = FileStore()
     return fs.download(request)
 
+
 @app.route('/get-current-users-files', methods=['GET'])
 def get_current_users_files():
     fs = FileStore()
     return fs.get_current_users_files(request)
+
 
 if __name__ == '__main__':
     app.run()
