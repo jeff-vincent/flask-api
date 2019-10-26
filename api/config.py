@@ -1,1 +1,1 @@
-FILE_STORE_URI: str = 'http://0.0.0.0:8080/'
+FILE_STORE_URI = 'http://0.0.0.0:8080/'

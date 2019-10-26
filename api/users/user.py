@@ -22,7 +22,8 @@ class Admin:
             return 'Successfully created user: ' + new_user.email
         
         except Exception as e:
-            if "key 'email'" in str(e):
+            print(str(e))
+            if 'UNIQUE constraint failed: user.email' in str(e):
                 return 'An account with that email already exists.' 
 
 
