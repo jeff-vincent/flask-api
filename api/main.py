@@ -127,7 +127,7 @@ def upload():
     return fs.upload(request)
 
 
-@app.route('/download', methods=['POST'])
+@app.route('/download', methods=['GET', 'POST'])
 def download():
     fs = FileStore()
     return fs.download(request)
@@ -140,4 +140,4 @@ def get_current_users_files():
 
 
 if __name__ == '__main__':
-    app.run()
+    app.run(threaded=True)
